@@ -24,6 +24,9 @@
                 font-family: Tohoma;
                 text-align: center;
             }
+            center{
+                display:none;
+            }
         </style>
     </head>
     <body>
@@ -133,8 +136,8 @@
                 head.appendChild(style);
             }, 0);
         </script>
-        <center>
-            <div onclick="button()" id="button">&nbsp;&nbsp;&nbsp;Answer&nbsp;&nbsp;&nbsp;</div>
-        </center>
+        <div style="width:100%;text-align: center;">
+            <div onclick="button()" id="button" style="margin:0 auto;">&nbsp;&nbsp;&nbsp;Answer&nbsp;&nbsp;&nbsp;</div>
+        </div>
     </body>
 </html>
