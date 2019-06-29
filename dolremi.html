@@ -30,7 +30,8 @@
         <div id="titlebar">DolremiTest</div>
         <div style="font-size:1.5vh;background:linear-gradient(#dfdfdf, white);">&nbsp;</div>
         <canvas height="400" width="400" id="canvas"></canvas>
-        <div style="font-size:5vh;">&nbsp;</div>
+        <div style="font-size:5vh;text-align:center;" id="answerbar">&nbsp;</div>
+        <div style="font-size:2vh;">&nbsp;</div>
         <script>
             var canvas = document.getElementById("canvas");
             var ctx = canvas.getContext("2d");
@@ -72,8 +73,11 @@
                 ctx.stroke();
                 ctx.stroke();
             }
+            var buttonpushed = false;
             var seed;
             function random(){
+                buttonpushed = false;
+                answerbar.innerHTML = "&nbsp;"
                 seed = Math.random();
                 seed = seed * 10;
                 seed = parseInt(seed);
@@ -85,36 +89,42 @@
                 drawNote(seed);
             }
             function answer(){
+                var answerbar = document.getElementById("answerbar");
                 if(seed>7){
                     seed = seed - 7;
                 }
                 if(seed == 1){
-                    alert("Dol");
+                    answerbar.innerHTML = "Dol";
                 }
                 else if (seed == 2){
-                    alert("Re");
+                    answerbar.innerHTML = "Re";
                 }
                 else if (seed == 3){
-                    alert("Mi");
+                    answerbar.innerHTML = "Mi";
                 }
                 else if (seed == 4){
-                    alert("Fa");
+                    answerbar.innerHTML = "Fa";
                 }
                 else if (seed == 5){
-                    alert("Sol");
+                    answerbar.innerHTML = "Sol";
                 }
                 else if (seed == 6){
-                    alert("La");
+                    answerbar.innerHTML = "La";
                 }
                 else if (seed == 7){
-                    alert("Si");
+                    answerbar.innerHTML = "Si";
                 }
             }
-            random();
             function button(){
-                answer();
-                random();
+                if(buttonpushed == false){
+                    answer();
+                    setTimeout(() => {
+                        random();
+                    }, 1000);
+                }
+                buttonpushed = true;
             }
+            random();
             setTimeout(() => {
                 var clientwidth = document.body.clientWidth;
                 var style = document.createElement("style");
