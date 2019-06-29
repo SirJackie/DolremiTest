@@ -1,0 +1,130 @@
+<html>
+    <head>
+        <title>DolReMi</title>
+        <style>
+            html,body{
+                height:100%;
+                border:0;
+                padding:0;
+                margin:0;
+            }
+            *{
+                font-size: 10vw;
+            }
+            #button{
+                width:95%;
+                text-align:center;
+                background:linear-gradient(160deg, #00ffd5 20%,#008cff 80%);
+                border-radius: 1em;
+                box-shadow:0 0 0.25em black;
+            }
+            #titlebar{
+                width:100%;
+                height:auto;
+                font-family: Tohoma;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="titlebar">DolReMiTest</div>
+        <div style="font-size:1.5vh;background:linear-gradient(#dfdfdf, white);">&nbsp;</div>
+        <canvas height="400" width="400" id="canvas"></canvas>
+        <div style="font-size:5vh;">&nbsp;</div>
+        <script>
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            function clearScreen(){
+                ctx.fillStyle="white";
+                ctx.fillRect(0,0,400,400);
+            }
+            function quickLine(y){
+                ctx.beginPath();
+                ctx.moveTo(0,y);
+                ctx.lineTo(400,y);
+                ctx.strokeStyle="black";
+                ctx.stroke();
+                ctx.stroke();
+            }
+            function drawLine(){
+                quickLine(50);
+                quickLine(100);
+                quickLine(150);
+                quickLine(200);
+                quickLine(250);
+                //line in (0,300)
+                ctx.beginPath();
+                ctx.moveTo(100,300);
+                ctx.lineTo(300,300);
+                ctx.strokeStyle="black";
+                ctx.stroke();
+                ctx.stroke();
+            }
+            function drawNote(music){
+                y = 325 - music*25;
+                ctx.beginPath();
+                ctx.arc(200,y,25,0*Math.PI,2*Math.PI);
+                ctx.fillStyle = "black";
+                ctx.fill();
+                ctx.moveTo(225,y);
+                ctx.lineTo(225,y-125);
+                ctx.strokeStyle="black";
+                ctx.stroke();
+                ctx.stroke();
+            }
+            var seed;
+            function random(){
+                seed = Math.random();
+                seed = seed * 10;
+                seed = parseInt(seed);
+                if(seed == 0){
+                    seed = 1;
+                }
+                clearScreen();
+                drawLine();
+                drawNote(seed);
+            }
+            function answer(){
+                if(seed>7){
+                    seed = seed - 7;
+                }
+                if(seed == 1){
+                    alert("Dol");
+                }
+                else if (seed == 2){
+                    alert("Re");
+                }
+                else if (seed == 3){
+                    alert("Mi");
+                }
+                else if (seed == 4){
+                    alert("Fa");
+                }
+                else if (seed == 5){
+                    alert("Sol");
+                }
+                else if (seed == 6){
+                    alert("La");
+                }
+                else if (seed == 7){
+                    alert("Si");
+                }
+            }
+            random();
+            function button(){
+                answer();
+                random();
+            }
+            setTimeout(() => {
+                var clientwidth = document.body.clientWidth;
+                var style = document.createElement("style");
+                style.innerHTML = "#canvas{width:" + clientwidth + ";height:" + clientwidth + ";}";
+                var head = document.getElementsByTagName("head")[0];
+                head.appendChild(style);
+            }, 100);
+        </script>
+        <center>
+            <div onclick="button()" id="button">&nbsp;&nbsp;&nbsp;Answer&nbsp;&nbsp;&nbsp;</div>
+        </center>
+    </body>
+</html>
