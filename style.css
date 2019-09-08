@@ -6,27 +6,23 @@ html,body{
 }
 *{
     font-size: 10vw;
+    font-family: Tohoma;
 }
-#button{
-    width:95%;
+#AnswerButton{
+    width:auto;
+    margin:0.25em;
     text-align:center;
     background:linear-gradient(160deg, #00ffd5 20%,#008cff 80%);
     border-radius: 1em;
-    box-shadow:0 0 7vw #999999;
-    transition: background 0.5s;
-}
-#button:active{
-    background: #008cff;
+    box-shadow:0 0 0.5em #777777;
 }
 #titlebar{
     width:100%;
-    height:auto;
-    font-family: Tohoma;
     text-align: center;
+    box-shadow: 0 0 0.5em #777777;
 }
 #faketitlebar{
-    font-size:1.5vw;
-    background:linear-gradient(#ebebeb, white);
+    font-size:1em;
 }
 #answerbar{
     text-align:center;

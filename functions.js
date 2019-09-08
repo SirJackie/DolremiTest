@@ -79,7 +79,7 @@ function answer(){
         answerbar.innerHTML = "Si";
     }
 }
-function button(){
+function showAnswer(){
     if(buttonpushed == false){
         //var button = document.getElementById("button");
         //button.style.background = "linear-gradient(160deg, #ffce00 20%,#ff8b00 80%)";
