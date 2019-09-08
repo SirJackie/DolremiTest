@@ -1,151 +1,19 @@
 <html>
     <head>
         <title>DolReMi</title>
-        <style>
-            html,body{
-                height:100%;
-                border:0;
-                padding:0;
-                margin:0;
-            }
-            *{
-                font-size: 10vw;
-            }
-            #button{
-                width:95%;
-                text-align:center;
-                background:#00ffd5;
-                /*background: linear-gradient(160deg, #ffce00 20%,#ff8b00 80%);*/
-                /*background:linear-gradient(160deg, #00ffd5 20%,#008cff 80%);*/
-                border-radius: 1em;
-                box-shadow:0 0 7vw #999999;
-                transition: background 0.5s;
-            }
-            #button:active{
-                background: #008cff;
-            }
-            #titlebar{
-                width:100%;
-                height:auto;
-                font-family: Tohoma;
-                text-align: center;
-            }
-            center{
-                display:none;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="./style.css">
+        <script src="./functions.js"></script>
     </head>
     <body>
+        <!-- Top Tags -->
         <div id="titlebar">DolremiTest</div>
-        <div style="font-size:1.5vw;background:linear-gradient(#ebebeb, white);">&nbsp;</div>
+        <div id="faketitlebar">&nbsp;</div>
+
+        <!-- Central Tags -->
         <canvas height="400" width="400" id="canvas"></canvas>
-        <div style="font-size:5vh;text-align:center;" id="answerbar">&nbsp;</div>
-        <div style="font-size:2vh;">&nbsp;</div>
-        <script>
-            var canvas = document.getElementById("canvas");
-            var ctx = canvas.getContext("2d");
-            function clearScreen(){
-                ctx.fillStyle="white";
-                ctx.fillRect(0,0,400,400);
-            }
-            function quickLine(y){
-                ctx.beginPath();
-                ctx.moveTo(0,y);
-                ctx.lineTo(400,y);
-                ctx.strokeStyle="black";
-                ctx.stroke();
-                ctx.stroke();
-            }
-            function drawLine(){
-                quickLine(50);
-                quickLine(100);
-                quickLine(150);
-                quickLine(200);
-                quickLine(250);
-                //line in (0,300)
-                ctx.beginPath();
-                ctx.moveTo(100,300);
-                ctx.lineTo(300,300);
-                ctx.strokeStyle="black";
-                ctx.stroke();
-                ctx.stroke();
-            }
-            function drawNote(music){
-                y = 325 - music*25;
-                ctx.beginPath();
-                ctx.arc(200,y,25,0*Math.PI,2*Math.PI);
-                ctx.fillStyle = "black";
-                ctx.fill();
-                ctx.moveTo(225,y);
-                ctx.lineTo(225,y-125);
-                ctx.strokeStyle="black";
-                ctx.stroke();
-                ctx.stroke();
-            }
-            var buttonpushed = false;
-            var seed;
-            function random(){
-                buttonpushed = false;
-                answerbar.innerHTML = "&nbsp;"
-                seed = Math.random();
-                seed = seed * 10;
-                seed = parseInt(seed);
-                if(seed == 0){
-                    seed = 1;
-                }
-                clearScreen();
-                drawLine();
-                drawNote(seed);
-            }
-            function answer(){
-                var answerbar = document.getElementById("answerbar");
-                if(seed>7){
-                    seed = seed - 7;
-                }
-                if(seed == 1){
-                    answerbar.innerHTML = "Dol";
-                }
-                else if (seed == 2){
-                    answerbar.innerHTML = "Re";
-                }
-                else if (seed == 3){
-                    answerbar.innerHTML = "Mi";
-                }
-                else if (seed == 4){
-                    answerbar.innerHTML = "Fa";
-                }
-                else if (seed == 5){
-                    answerbar.innerHTML = "Sol";
-                }
-                else if (seed == 6){
-                    answerbar.innerHTML = "La";
-                }
-                else if (seed == 7){
-                    answerbar.innerHTML = "Si";
-                }
-            }
-            function button(){
-                if(buttonpushed == false){
-                    //var button = document.getElementById("button");
-                    //button.style.background = "linear-gradient(160deg, #ffce00 20%,#ff8b00 80%)";
-                    answer();
-                    setTimeout(() => {
-                        //var button = document.getElementById("button");
-                        //button.style.background = "linear-gradient(160deg, #00ffd5 20%,#008cff 80%)";
-                        random();
-                    }, 1000);
-                }
-                buttonpushed = true;
-            }
-            random();
-            setTimeout(() => {
-                var clientwidth = document.body.clientWidth;
-                var style = document.createElement("style");
-                style.innerHTML = "#canvas{width:" + clientwidth + ";height:" + clientwidth + ";}";
-                var head = document.getElementsByTagName("head")[0];
-                head.appendChild(style);
-            }, 0);
-        </script>
+        <div id="answerbar">&nbsp;</div>
+
+        <!-- Answer Button -->
         <div style="width:100%;text-align: center;">
             <div onclick="button()" id="button" style="margin:0 auto;">&nbsp;&nbsp;&nbsp;Answer&nbsp;&nbsp;&nbsp;</div>
         </div>
