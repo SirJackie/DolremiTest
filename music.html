@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>music learn</title>
+    </head>
+    <body>
+        <canvas id="canvas" width="900px" height="900px"></canvas>
+        <script>
+            //随机数生成器
+            var randomobj = {
+                lastState:0,//保存上一次的状态
+                "random":function(a,b){
+                    for(var i = 0; i<1000; i++){
+                        var tmp = Math.floor(Math.random()*(b-a+1)+a);//抽取从a到b的随机数
+                        if(tmp != this.lastState){//如果这个数和上一个数不一样
+                            this.lastState = tmp;//把这个数存到“上一个数”变量里面
+                            return tmp;//把结果返回
+                        }
+                        //如果抽到的数和上一个数不一样，没有触发if循环，就继续抽，直到一千次都没有抽到
+                    }
+                    //运气太背了，一千次都没抽到，就返回和上次不一样的数吧
+                    return lastState + 1;
+                }
+            }
+
+            //实例化一个随机数生成器
+            var RandomMusicObject = randomobj;
+
+            //获得随机音符数字
+            function getRandomMusicIndex(){
+                //随机抽dol到mi的音符
+                var music = RandomMusicObject.random(0,6);
+                //随机产生高八度的音符
+                if(Math.random() >=0.5){
+                    music += 7;
+                }
+                return music;
+            }
+
+            //自动调整元素大小
+            function autoSizing(elementId,useHeightOrWidth){
+                var element = document.getElementById(elementId);
+                if(useHeightOrWidth == "height"){
+                    element.style.width = "80vh";
+                    element.style.height = "80vh";
+                }
+                else if(useHeightOrWidth == "width"){
+                    element.style.width = "100vw";
+                    element.style.height = "100v2w";
+                }
+            }
+
+            //获取Canvas的Context
+            function getCanvasCtx(canvasId){
+                var canvas = document.getElementById(canvasId);
+                var ctx = canvas.getContext("2d");
+                return ctx;
+            }
+
+            //画长条线
+            function drawLongLine(ctx,y){
+                ctx.beginPath();
+                ctx.moveTo(0,y);
+                ctx.lineTo(900,y);
+                ctx.strokeStyle="black";
+                ctx.lineWidth=5;
+                ctx.stroke();
+                ctx.stroke();
+            }
+
+            //画短条线
+            function drawShortLine(ctx,y){
+                ctx.beginPath();
+                ctx.moveTo(200,y);
+                ctx.lineTo(700,y);
+                ctx.strokeStyle="black";
+                ctx.lineWidth=5;
+                ctx.stroke();
+                ctx.stroke();
+            }
+
+            //画音符
+            function drawMusicNote(ctx,y){
+                ctx.beginPath();
+                ctx.arc(450,y,50,0*Math.PI,2*Math.PI);
+                ctx.fillStyle = "black";
+                ctx.fill();
+                var noteRightXNum = 450+50;
+                ctx.moveTo(noteRightXNum,y);
+                ctx.lineTo(noteRightXNum,y-250);
+                ctx.strokeStyle="black";
+                ctx.stroke();
+                ctx.stroke();
+            }
+
+            //画八条线
+            function drawEightLines(ctx){
+                drawShortLine(ctx,100);
+                drawShortLine(ctx,200);
+                drawLongLine(ctx,300);
+                drawLongLine(ctx,400);
+                drawLongLine(ctx,500);
+                drawLongLine(ctx,600);
+                drawLongLine(ctx,700);
+                drawShortLine(ctx,800);
+            }
+
+            //画一个随机音符
+            function drawRandomNote(ctx){
+                var NoteIndex = getRandomMusicIndex();
+                var RealPosition = 150 + NoteIndex * 50;
+                drawMusicNote(ctx,RealPosition);
+                return NoteIndex;
+            }
+
+            //画Canvas里面的东西
+            function drawThings(ctx){
+                ctx.clearRect(0,0,900,900);
+                drawEightLines(ctx);
+                var NoteIndex = drawRandomNote(ctx);
+                return NoteIndex;
+            }
+
+            function showDolReMi(NoteIndex){
+                if(NoteIndex >= 7){
+                    NoteIndex -= 7;
+                }
+                if(NoteIndex == 0){
+                    alert("Si");
+                }
+                else if(NoteIndex == 1){
+                    alert("La");
+                }
+                else if(NoteIndex == 2){
+                    alert("Sol");
+                }
+                else if(NoteIndex == 3){
+                    alert("Fa");
+                }
+                else if(NoteIndex == 4){
+                    alert("Mi");
+                }
+                else if(NoteIndex == 5){
+                    alert("Re");
+                }
+                else if(NoteIndex == 6){
+                    alert("Dol");
+                }
+            }
+
+            var LastNoteIndex;
+            window.onload = function(){
+                autoSizing("canvas","height");
+                ctx = getCanvasCtx("canvas");//全局变量
+                LastNoteIndex = drawThings(ctx);
+            }
+
+            document.onkeydown = function(event){
+                var e = event || window.event || arguments.callee.caller.arguments[0];
+                if(e && e.keyCode == 13){
+                    showDolReMi(LastNoteIndex);
+                    ctx = getCanvasCtx("canvas");//全局变量
+                    LastNoteIndex = drawThings(ctx);
+                }
+            }
+
+            
+        </script>
+    </body>
+</html>
